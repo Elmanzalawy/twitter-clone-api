@@ -13,7 +13,12 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+        $tweets = Tweet::query()
+            ->with('user:id,name,username,avatar')
+            ->latest()
+            ->get();
+
+        return response()->json($tweets);
     }
 
     /**
