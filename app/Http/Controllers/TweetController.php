@@ -16,7 +16,7 @@ class TweetController extends Controller
         $tweets = Tweet::query()
             ->with('user:id,name,username,avatar')
             ->latest()
-            ->get();
+            ->paginate();
 
         return response()->json($tweets);
     }
@@ -40,9 +40,10 @@ class TweetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tweet $tweet)
+    public function findTweetById(Tweet $tweet)
     {
-        //
+        $tweet->load('user:id,name,username,avatar');
+        return response()->json($tweet);
     }
 
     /**
