@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Tweet;
 use App\Http\Requests\StoreTweetRequest;
 use App\Http\Requests\UpdateTweetRequest;
+use App\Models\User;
 
 class TweetController extends Controller
 {
+    public function __construct(){
+        info(request()->fullUrl());
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,19 +27,16 @@ class TweetController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTweetRequest $request)
     {
-        //
+        $tweet = Tweet::create([
+            'user_id' => User::first()->id,
+            'body' => $request->body,
+        ]);
+
+        return response()->json($tweet);
     }
 
     /**
@@ -44,14 +46,6 @@ class TweetController extends Controller
     {
         $tweet->load('user:id,name,username,avatar');
         return response()->json($tweet);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tweet $tweet)
-    {
-        //
     }
 
     /**

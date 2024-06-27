@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('tweets', [TweetController::class, 'index'])->name('api.tweets.list');
 Route::get('tweets/{tweet}', [TweetController::class, 'findTweetById'])->name('api.tweets.findTweetById');
+Route::post('tweets', [TweetController::class, 'store'])->name('api.tweets.store');
