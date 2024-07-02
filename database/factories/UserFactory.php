@@ -29,8 +29,13 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'avatar' => 'https://i.pravatar.cc/150?img=' . rand(1, 70),
+            'bio' => fake()->sentence(),
+            'location' => sprintf('%s, %s', fake()->city(), fake()->country()),
+            'link' =>   'https://elmanzalawy.github.io',
+            'link_text' => 'elmanzalawy.github.io',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'created_at' => fake()->dateTimeBetween('-30 days', now()),
         ];
     }
 
